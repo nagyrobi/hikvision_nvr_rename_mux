@@ -77,7 +77,7 @@ The offset is consistent across all files in a recording session, so one anchor 
 
 ### `mux_nvr.sh` — Concatenate files in chronological order
 
-After renaming, this script groups the files into larger combined recordings using `ffmpeg` stream copy (no re-encoding — fast and lossless). Files are sorted alphabetically by their new names, which puts them in correct chronological order.
+After renaming, this script groups the files into larger combined recordings using `ffmpeg` stream copy (no re-encoding — fast and lossless). This also fixes playback issues on some systems. Files are sorted alphabetically by their new names, which puts them in correct chronological order.
 
 **Output filename format** (timestamp of the first file in each group):
 ```
@@ -123,27 +123,7 @@ Group 1/1000: 7 file(s) → ./muxed/2026-06-01_06-47-11_mux.mp4
 frame=258457 fps=10075 q=-1.0 Lsize= 7250496KiB time=03:00:24.11 bitrate=5487.4kbits/s speed= 422x    
   ✓ Created: ./muxed/2026-06-01_06-47-11_mux.mp4
 
-Group 2/1000: 7 file(s) → ./muxed/2026-06-01_09-39-29_mux.mp4
-  + 2026-06-01_09-39-29_00000001268000000.mp4
-  + 2026-06-01_10-03-43_00000001351000000.mp4
-  + 2026-06-01_10-28-11_00000001325000000.mp4
-  + 2026-06-01_10-52-33_00000001299000000.mp4
-  + 2026-06-01_11-17-03_00000001336000000.mp4
-  + 2026-06-01_11-41-21_00000001353000000.mp4
-  + 2026-06-01_12-05-39_00000001381000000.mp4
-frame=255657 fps=6899 q=-1.0 Lsize= 7248671KiB time=02:58:32.70 bitrate=5543.1kbits/s speed= 289x    
-  ✓ Created: ./muxed/2026-06-01_09-39-29_mux.mp4
-
-Group 3/1000: 7 file(s) → ./muxed/2026-06-01_12-29-55_mux.mp4
-  + 2026-06-01_12-29-55_00000001364000000.mp4
-  + 2026-06-01_12-54-15_00000001361000000.mp4
-  + 2026-06-01_13-18-31_00000001310000000.mp4
-  + 2026-06-01_13-42-47_00000001408000000.mp4
-  + 2026-06-01_14-07-05_00000001399000000.mp4
-  + 2026-06-01_14-31-15_00000001423000000.mp4
-  + 2026-06-01_14-55-33_00000001321000000.mp4
-frame=254907 fps=7633 q=-1.0 Lsize= 7247301KiB time=02:58:03.37 bitrate=5557.2kbits/s speed= 320x    
-  ✓ Created: ./muxed/2026-06-01_12-29-55_mux.mp4
+...
 
 Group 4/1000: 7 file(s) → ./muxed/2026-06-01_15-19-51_mux.mp4
   + 2026-06-01_15-19-51_00000001407000000.mp4
