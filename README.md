@@ -13,13 +13,11 @@ The NVR gives files names like `00000001242000000.mp4` — numeric identifiers t
 
 ---
 
-## Scripts
-
-### `rename_nvr.sh` — Determine real timestamps and rename files
+## `rename_nvr.sh` — Determine real timestamps and rename files
 
 Hikvision NVR export filenames are internal identifiers, not timestamps. The files also contain no embedded `creation_time` metadata. This script uses the internal `pts_time` (presentation timestamp) of each file, anchored to one known real-world time you supply manually, to compute the actual wall-clock start time of every file and rename them with a human-readable prefix. Output filename format: `2026-01-01_08-01-08_00000001242000000.mp4`
 
-#### Usage
+### Usage
 
 ```bash
 ./rename_nvr.sh -a ANCHOR_FILE -t "YYYY-MM-DD HH:MM:SS" [-x]
@@ -32,7 +30,7 @@ Hikvision NVR export filenames are internal identifiers, not timestamps. The fil
 | `-x` | Execute — actually rename the files. Omit for a dry run (default) |
 | `-h` | Show help |
 
-#### Examples
+### Examples
 
 ```bash
 # Dry run — safe, just prints what would happen
@@ -59,7 +57,7 @@ Run with -x to apply.
 ./rename_nvr.sh -a 00000001242000000.mp4 -t "2026-01-01 08:01:08" -x
 ```
 
-#### How it works
+### How it works
 
 1. Reads the `pts_time` of the anchor file using `ffprobe`
 2. Computes the offset between that `pts_time` and your supplied wall-clock time
@@ -72,17 +70,15 @@ The offset is consistent across all files in a recording session, so one anchor 
 
 ---
 
-### `mux_nvr.sh` — Concatenate files in chronological order
+## `mux_nvr.sh` — Concatenate files in chronological order
 
-After renaming, this script groups the files into larger combined recordings using `ffmpeg` stream copy (no re-encoding — fast and lossless). This also fixes playback issues on some systems. Files are sorted alphabetically by their new names, which puts them in correct chronological order. 
+After renaming with `rename_nvr.sh`, this script groups the files into larger combined recordings using `ffmpeg` stream copy (no re-encoding — fast and lossless). This also fixes playback issues on some systems. Files are sorted alphabetically by their new names, which puts them in correct chronological order. 
 
-By default it muxes 7 files on one, as usuall a file duration is around 25 minutes, thus obtaining roughly 3 hours files.
+By default the script muxes 7 files in one, as usually a file duration is around 25 minutes, thus obtaining remuxed files of roughly 3 hours long.
 
-**Output filename format** (timestamp of the first file in each group): `2026-01-01_06-47-11_mux.mp4`
+Output filename format (timestamp of the first file in each group): `2026-01-01_06-47-11_mux.mp4`, they are written to a `./muxed/` subdirectory by default, leaving the originals untouched.
 
-Output files are written to a `./muxed/` subdirectory by default, leaving the originals untouched.
-
-#### Usage
+### Usage
 
 ```bash
 ./mux_nvr.sh [-n GROUP_SIZE] [-o OUTPUT_DIR] [-x]
@@ -97,7 +93,7 @@ Output files are written to a `./muxed/` subdirectory by default, leaving the or
 
 Running with **no arguments** prints help and performs a dry run with default settings.
 
-#### Examples
+### Examples
 
 ```bash
 # Dry run with defaults (7 files per group)
@@ -136,7 +132,7 @@ frame=256107 fps=8911 q=-1.0 Lsize= 7249172KiB time=02:58:51.80 bitrate=5533.6kb
 ./mux_nvr.sh -n 5 -o /media/backup/video -x
 ```
 
-#### How it works
+### How it works
 
 1. Collects all files matching `YYYY-MM-DD_HH-MM-SS_*.mp4` in the current directory
 2. Sorts them alphabetically (= chronologically after renaming)
@@ -169,5 +165,6 @@ Hikvision NVR web export produces `.mp4` files with:
 - Opaque numeric filenames that do not reflect recording time
 - No `creation_time` or other timestamp metadata
 - A shared internal `pts_time` timeline that is consistent within a session
+- Files experience playback issues with certan third party players, remuxing them is needed for smooth playback
 
 The scripts are based on the consistent `pts_time` offset to recover real wall-clock times without needing to decode or re-encode any video data.
