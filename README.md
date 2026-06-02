@@ -15,7 +15,7 @@ The NVR gives files names like `00000001242000000.mp4` — numeric identifiers t
 
 ## `rename_nvr.sh` — Determine real timestamps and rename files
 
-Hikvision NVR export filenames are internal identifiers, not timestamps. The files also contain no embedded creation time metadata. This script uses the internal `pts_time` (presentation timestamp) of each file, anchored to one known real-world time you supply manually, to compute the actual wall-clock start time of every file and rename them with a human-readable prefix. Output filename format: `2026-01-01_08-01-08_00000001242000000.mp4`
+Hikvision NVR export filenames are internal identifiers, not timestamps. The files also contain no embedded creation time metadata. This script uses the internal presentation timestamp of each MP4 file, anchored to one known real-world time you supply manually, to compute the actual wall-clock start time of every file and rename them with a human-readable prefix. Output filename format: `2026-01-01_08-01-08_00000001242000000.mp4`
 
 ### Usage
 
