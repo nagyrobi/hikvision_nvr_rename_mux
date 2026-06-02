@@ -41,7 +41,22 @@ Hikvision NVR export filenames are internal identifiers, not timestamps. The fil
 
 ```bash
 # Dry run — safe, just prints what would happen
-./rename_nvr.sh -a 00000001242000000.mp4 -t "2026-01-01 08:01:08"
+./rename_nvr.sh -a 00000001242000000.mp4 -t "2026-06-01 08:01:07"
+Reading pts_time from anchor file: 00000001242000000.mp4
+Anchor pts_time : 11633.571311
+Anchor wall time: 2026-06-01 08:01:07 (epoch: 1780293667)
+Computed offset : 1780282033 seconds
+
+*** DRY RUN — no files will be renamed. Use -x to execute. ***
+
+  00000001242000000.mp4  →  2026-06-01_08-01-07_00000001242000000.mp4
+  00000001264000000.mp4  →  2026-06-01_06-47-11_00000001264000000.mp4
+  ...
+  00000001429000000.mp4  →  2026-06-01_16-32-31_00000001429000000.mp4
+  00000001486000000.mp4  →  2026-06-01_17-46-03_00000001486000000.mp4
+
+Dry run complete: 28 files would be renamed, 0 skipped.
+Run with -x to apply.
 
 # Live run — renames all .mp4 files in the current directory
 ./rename_nvr.sh -a 00000001242000000.mp4 -t "2026-01-01 08:01:08" -x
@@ -94,6 +109,52 @@ Running with **no arguments** prints help and performs a dry run with default se
 
 # Live run — groups of 7, output to ./muxed
 ./mux_nvr.sh -x
+Found 28 files → 1000 output file(s) of up to 7 each
+Output directory: ./muxed
+
+Group 1/1000: 7 file(s) → ./muxed/2026-06-01_06-47-11_mux.mp4
+  + 2026-06-01_06-47-11_00000001264000000.mp4
+  + 2026-06-01_07-11-47_00000001300000000.mp4
+  + 2026-06-01_07-36-25_00000001318000000.mp4
+  + 2026-06-01_08-01-07_00000001242000000.mp4
+  + 2026-06-01_08-26-07_00000001304000000.mp4
+  + 2026-06-01_08-50-41_00000001272000000.mp4
+  + 2026-06-01_09-15-07_00000001327000000.mp4
+frame=258457 fps=10075 q=-1.0 Lsize= 7250496KiB time=03:00:24.11 bitrate=5487.4kbits/s speed= 422x    
+  ✓ Created: ./muxed/2026-06-01_06-47-11_mux.mp4
+
+Group 2/1000: 7 file(s) → ./muxed/2026-06-01_09-39-29_mux.mp4
+  + 2026-06-01_09-39-29_00000001268000000.mp4
+  + 2026-06-01_10-03-43_00000001351000000.mp4
+  + 2026-06-01_10-28-11_00000001325000000.mp4
+  + 2026-06-01_10-52-33_00000001299000000.mp4
+  + 2026-06-01_11-17-03_00000001336000000.mp4
+  + 2026-06-01_11-41-21_00000001353000000.mp4
+  + 2026-06-01_12-05-39_00000001381000000.mp4
+frame=255657 fps=6899 q=-1.0 Lsize= 7248671KiB time=02:58:32.70 bitrate=5543.1kbits/s speed= 289x    
+  ✓ Created: ./muxed/2026-06-01_09-39-29_mux.mp4
+
+Group 3/1000: 7 file(s) → ./muxed/2026-06-01_12-29-55_mux.mp4
+  + 2026-06-01_12-29-55_00000001364000000.mp4
+  + 2026-06-01_12-54-15_00000001361000000.mp4
+  + 2026-06-01_13-18-31_00000001310000000.mp4
+  + 2026-06-01_13-42-47_00000001408000000.mp4
+  + 2026-06-01_14-07-05_00000001399000000.mp4
+  + 2026-06-01_14-31-15_00000001423000000.mp4
+  + 2026-06-01_14-55-33_00000001321000000.mp4
+frame=254907 fps=7633 q=-1.0 Lsize= 7247301KiB time=02:58:03.37 bitrate=5557.2kbits/s speed= 320x    
+  ✓ Created: ./muxed/2026-06-01_12-29-55_mux.mp4
+
+Group 4/1000: 7 file(s) → ./muxed/2026-06-01_15-19-51_mux.mp4
+  + 2026-06-01_15-19-51_00000001407000000.mp4
+  + 2026-06-01_15-44-03_00000001382000000.mp4
+  + 2026-06-01_16-08-19_00000001338000000.mp4
+  + 2026-06-01_16-32-31_00000001429000000.mp4
+  + 2026-06-01_16-57-01_00000001375000000.mp4
+  + 2026-06-01_17-21-27_00000001418000000.mp4
+  + 2026-06-01_17-46-03_00000001486000000.mp4
+frame=256107 fps=8911 q=-1.0 Lsize= 7249172KiB time=02:58:51.80 bitrate=5533.6kbits/s speed= 373x    
+  ✓ Created: ./muxed/2026-06-01_15-19-51_mux.mp4
 
 # Groups of 5, custom output directory, live run
 ./mux_nvr.sh -n 5 -o /media/backup/video -x
