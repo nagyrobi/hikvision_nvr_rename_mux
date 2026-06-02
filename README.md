@@ -2,7 +2,7 @@
 
 Two bash scripts for working with `.mp4` files exported from a **Hikvision NVR** via its web interface (usually via the "Download by File" functionality, saving the files one by one).
 
-The NVR gives files names like `00000001242000000.mp4` — numeric identifiers that do not sort into correct chronological order and carry no human-readable timestamp. These scripts solve both problems.
+The NVR gives files names like `00000001242000000.mp4` — numeric identifiers that do not sort into correct chronological order and carry no human-readable timestamp. The files experience playback issues with certan third party players, remuxing them is recommended for smooth playback.
 
 ---
 
