@@ -66,7 +66,7 @@ Run with -x to apply.
 
 The offset is consistent across all files in a recording session, so one anchor point is enough for the entire batch.
 
-> **Note:** Run with a new anchor if you switch to a different recording session or camera. The pts offset is session-specific.
+> **Note:** Run with a new anchor if you switch to a different recording session or camera. The pts offset is session-specific. Verify each file by playing it: does the filename match the date and time burnt into the picture?
 
 ---
 
