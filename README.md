@@ -1,6 +1,6 @@
 # Hikvision NVR — Rename & Mux Scripts
 
-Two bash scripts for working with `.mp4` files exported from a **Hikvision NVR** via its web interface.
+Two bash scripts for working with `.mp4` files exported from a **Hikvision NVR** via its web interface (usually via the "Download by File" functionality).
 
 The NVR gives files names like `00000001242000000.mp4` — numeric identifiers that do not sort into correct chronological order and carry no human-readable timestamp. These scripts solve both problems.
 
@@ -17,12 +17,7 @@ The NVR gives files names like `00000001242000000.mp4` — numeric identifiers t
 
 ### `rename_nvr.sh` — Determine real timestamps and rename files
 
-Hikvision NVR export filenames are internal identifiers, not timestamps. The files also contain no embedded `creation_time` metadata. This script uses the internal `pts_time` (presentation timestamp) of each file, anchored to one known real-world time you supply manually, to compute the actual wall-clock start time of every file and rename them with a human-readable prefix.
-
-**Output filename format:**
-```
-2026-01-01_08-01-08_00000001242000000.mp4
-```
+Hikvision NVR export filenames are internal identifiers, not timestamps. The files also contain no embedded `creation_time` metadata. This script uses the internal `pts_time` (presentation timestamp) of each file, anchored to one known real-world time you supply manually, to compute the actual wall-clock start time of every file and rename them with a human-readable prefix. Output filename format: `2026-01-01_08-01-08_00000001242000000.mp4`
 
 #### Usage
 
@@ -81,10 +76,7 @@ After renaming, this script groups the files into larger combined recordings usi
 
 By default it muxes 7 files on one, as usuall a file duration is around 25 minutes, thus obtaining roughly 3 hours files.
 
-**Output filename format** (timestamp of the first file in each group):
-```
-2026-01-01_06-47-11_mux.mp4
-```
+**Output filename format** (timestamp of the first file in each group): `2026-01-01_06-47-11_mux.mp4`
 
 Output files are written to a `./muxed/` subdirectory by default, leaving the originals untouched.
 
@@ -108,7 +100,9 @@ Running with **no arguments** prints help and performs a dry run with default se
 ```bash
 # Dry run with defaults (7 files per group)
 ./mux_nvr.sh
+```
 
+```bash
 # Live run — groups of 7, output to ./muxed
 ./mux_nvr.sh -x
 Found 28 files → 1000 output file(s) of up to 7 each
@@ -129,15 +123,13 @@ frame=258457 fps=10075 q=-1.0 Lsize= 7250496KiB time=03:00:24.11 bitrate=5487.4k
 
 Group 4/1000: 7 file(s) → ./muxed/2026-06-01_15-19-51_mux.mp4
   + 2026-06-01_15-19-51_00000001407000000.mp4
-  + 2026-06-01_15-44-03_00000001382000000.mp4
-  + 2026-06-01_16-08-19_00000001338000000.mp4
-  + 2026-06-01_16-32-31_00000001429000000.mp4
-  + 2026-06-01_16-57-01_00000001375000000.mp4
-  + 2026-06-01_17-21-27_00000001418000000.mp4
+  ...
   + 2026-06-01_17-46-03_00000001486000000.mp4
 frame=256107 fps=8911 q=-1.0 Lsize= 7249172KiB time=02:58:51.80 bitrate=5533.6kbits/s speed= 373x    
   ✓ Created: ./muxed/2026-06-01_15-19-51_mux.mp4
+```
 
+```bash
 # Groups of 5, custom output directory, live run
 ./mux_nvr.sh -n 5 -o /media/backup/video -x
 ```
@@ -176,4 +168,4 @@ Hikvision NVR web export produces `.mp4` files with:
 - No `creation_time` or other timestamp metadata
 - A shared internal `pts_time` timeline that is consistent within a session
 
-The scripts exploit the consistent `pts_time` offset to recover real wall-clock times without needing to decode or re-encode any video data.
+The scripts are based on the consistent `pts_time` offset to recover real wall-clock times without needing to decode or re-encode any video data.
