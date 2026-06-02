@@ -1,6 +1,6 @@
 # Hikvision NVR — Rename & Mux Scripts
 
-Two bash scripts for working with `.mp4` files exported from a **Hikvision NVR** via its web interface (usually via the "Download by File" functionality).
+Two bash scripts for working with `.mp4` files exported from a **Hikvision NVR** via its web interface (usually via the "Download by File" functionality, saving the files one by one).
 
 The NVR gives files names like `00000001242000000.mp4` — numeric identifiers that do not sort into correct chronological order and carry no human-readable timestamp. These scripts solve both problems.
 
@@ -52,7 +52,9 @@ Computed offset : 1780282033 seconds
 
 Dry run complete: 28 files would be renamed, 0 skipped.
 Run with -x to apply.
+```
 
+```bash
 # Live run — renames all .mp4 files in the current directory
 ./rename_nvr.sh -a 00000001242000000.mp4 -t "2026-01-01 08:01:08" -x
 ```
