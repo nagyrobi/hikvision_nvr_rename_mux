@@ -77,7 +77,9 @@ The offset is consistent across all files in a recording session, so one anchor 
 
 ### `mux_nvr.sh` — Concatenate files in chronological order
 
-After renaming, this script groups the files into larger combined recordings using `ffmpeg` stream copy (no re-encoding — fast and lossless). This also fixes playback issues on some systems. Files are sorted alphabetically by their new names, which puts them in correct chronological order.
+After renaming, this script groups the files into larger combined recordings using `ffmpeg` stream copy (no re-encoding — fast and lossless). This also fixes playback issues on some systems. Files are sorted alphabetically by their new names, which puts them in correct chronological order. 
+
+By default it muxes 7 files on one, as usuall a file duration is around 25 minutes, thus obtaining roughly 3 hours files.
 
 **Output filename format** (timestamp of the first file in each group):
 ```
