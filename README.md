@@ -54,7 +54,7 @@ Run with -x to apply.
 
 ```bash
 # Live run — renames all .mp4 files in the current directory
-./rename_nvr.sh -a 00000001242000000.mp4 -t "2026-01-01 08:01:08" -x
+./rename_nvr.sh -a 00000001242000000.mp4 -t "2026-06-01 08:01:07" -x
 ```
 
 ### How it works
@@ -108,11 +108,7 @@ Output directory: ./muxed
 
 Group 1/1000: 7 file(s) → ./muxed/2026-06-01_06-47-11_mux.mp4
   + 2026-06-01_06-47-11_00000001264000000.mp4
-  + 2026-06-01_07-11-47_00000001300000000.mp4
-  + 2026-06-01_07-36-25_00000001318000000.mp4
-  + 2026-06-01_08-01-07_00000001242000000.mp4
-  + 2026-06-01_08-26-07_00000001304000000.mp4
-  + 2026-06-01_08-50-41_00000001272000000.mp4
+  ...
   + 2026-06-01_09-15-07_00000001327000000.mp4
 frame=258457 fps=10075 q=-1.0 Lsize= 7250496KiB time=03:00:24.11 bitrate=5487.4kbits/s speed= 422x    
   ✓ Created: ./muxed/2026-06-01_06-47-11_mux.mp4
@@ -147,8 +143,8 @@ frame=256107 fps=8911 q=-1.0 Lsize= 7249172KiB time=02:58:51.80 bitrate=5533.6kb
 
 ```bash
 # Step 1 — figure out the real time of one file by playing it, then rename all
-./rename_nvr.sh -a 00000001242000000.mp4 -t "2026-01-01 08:01:08"   # dry run
-./rename_nvr.sh -a 00000001242000000.mp4 -t "2026-01-01 08:01:08" -x # apply
+./rename_nvr.sh -a 00000001242000000.mp4 -t "2026-06-01 08:01:07"       # dry run
+./rename_nvr.sh -a 00000001242000000.mp4 -t "2026-06-01 08:01:07" -x    # apply
 
 # Step 2 — preview grouping
 ./mux_nvr.sh
